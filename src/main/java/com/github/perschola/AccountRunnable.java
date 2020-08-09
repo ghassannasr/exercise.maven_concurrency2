@@ -1,5 +1,7 @@
 package com.github.perschola;
 
+import javax.sound.midi.Soundbank;
+
 public class AccountRunnable implements Runnable {
 
     @Override
@@ -13,11 +15,14 @@ public class AccountRunnable implements Runnable {
                     e.printStackTrace();
                 }
                 synchronized (Account.class) {
+                    String name = Thread.currentThread().getName();
                     if (account.getBalance() >= 10) {
-                        System.out.println(Thread.currentThread().getName() + " is withdrawing $10.");
+                        System.out.println(name + " is going to withdraw.");
                         account.withdraw(10D);
-                        System.out.println("The remaining balance is: " + account.getBalance());
-
+                        System.out.println(name + " completes the withdrawal.");
+                    }
+                    else {
+                        System.out.println("Not enough in the account for " + name + " to withdraw.");
                     }
                 }
         }
